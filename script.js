@@ -42,25 +42,28 @@ function displayProducts(p_products) {
         description.innerHTML = element.description
         description.className = "none"
 
-        // card.onmouseover = function showDetails() {
-        //     description.classList.remove("none")
-        // }
-        card.addEventListener("mouseover", function hideDetails() {
-            description.classList.remove("none")
-        })
-        card.addEventListener("mouseleave", function hideDetails() {
-            description.classList.add("none")
-        })
-        // card.onmouseleave = function hideDetails() {
-        //     description.classList.add("none")
-        // }
         var buyBtn = document.createElement("button")
         buyBtn.innerHTML = "Buy"
         var detailsBtn = document.createElement("button")
         detailsBtn.innerHTML = "Details"
+        detailsBtn.id = i
+
+        detailsBtn.addEventListener("mouseover", function showDetails(event) {
+            var correctDesc = event.target.parentElement.children[3]
+            correctDesc.classList.remove("none")
+            console.log(correctDesc);
+            description.innerHTML = p_products[event.target.id].description
+
+        })
+        document.body.appendChild(description)
+        detailsBtn.addEventListener("mouseleave", function hideDetails(e) {
+            var correctDescc = e.target.parentElement.children[3]
+            correctDescc.classList.add("none")
+        })
         card.appendChild(title)
         card.appendChild(img)
         card.appendChild(price)
+        card.appendChild(description)
         card.appendChild(buyBtn)
         card.appendChild(detailsBtn)
         main.appendChild(card)
@@ -79,9 +82,3 @@ searchProducts = (e) => {
     }
     displayProducts(filtered);
 }
-
-
-// showDetails = () => {
-//     onmouseover(card) = description.classList.remove("none")
-//     onmouseleave(card) = description.classList.add("none")
-// }
